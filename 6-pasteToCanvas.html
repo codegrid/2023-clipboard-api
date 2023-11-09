@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <title>6. - Clipboard demo</title>
+  </head>
+  <body>
+    <div>
+      <button>画像をペースト</button>
+      <p>クリップボードに画像があれば、それがこの下にペーストされます。</p>
+    </div>
+    <script>
+      document.querySelector('button').addEventListener('click', () => {
+        navigator.clipboard.read().then(data => {
+          const imageItem = data.find(item => item.types.includes('image/png'))
+          if (imageItem) {
+            imageItem.getType('image/png').then(blob => {
+
+              // 以下、blobデータをcanvasに描画するコード
+              const canvas = document.createElement('canvas')
+              const ctx = canvas.getContext('2d')
+              const img = new Image()
+              img.onload = () => {
+                canvas.width = img.width
+                canvas.height = img.height
+                ctx.drawImage(img, 0, 0)
+                document.body.appendChild(canvas)
+              }
+              img.src = URL.createObjectURL(blob)
+            })
+          }
+        })
+      })
+    </script>
+  </body>
+</html>

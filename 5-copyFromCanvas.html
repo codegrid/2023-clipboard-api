@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <title>5. - Clipboard demo</title>
+  </head>
+  <body>
+    <div>
+      <p>200px四方の赤い正方形がクリップボードのコピーされます。</p>
+    </div>
+    <script>
+      // canvas要素を作成し、200px四方の赤い四角形を描画する
+      const canvas = document.createElement('canvas')
+      canvas.width = 200
+      canvas.height = 200
+      const ctx = canvas.getContext('2d')
+      ctx.fillStyle = 'red'
+      ctx.fillRect(0, 0, canvas.width, canvas.height)
+
+      // png画像としてクリップボードにコピーする
+      canvas.toBlob(blob => {
+        const data = new ClipboardItem({ 'image/png': blob })
+        navigator.clipboard.write([data])
+      })
+    </script>
+  </body>
+</html>

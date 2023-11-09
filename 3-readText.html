@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <title>3. - Clipboard demo</title>
+  </head>
+  <body>
+    <div>
+      <p>JavaScriptでクリップボードの中身を読み出し、コンソールにペーストします。</p>
+    </div>
+    <script>
+      navigator.clipboard.readText().then(clipboardText => {
+        console.log(clipboardText)
+      })
+    </script>
+  </body>
+</html>
